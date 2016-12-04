@@ -125,10 +125,6 @@ app.get("/fbmsgr/contacts", function(req, res) {
 
       docs.forEach(function(doc) {
 
-        // if (count > 0) {
-        //   fbContact = ",";
-        // }
-
         fbContact = {
           "title": doc.firstName + " " + doc.lastName,
           "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
@@ -170,7 +166,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
 
       console.log("fbTemplate JSON: " + JSON.stringify(fbTemplate));
 
-      res.status(200).json(JSON.stringify(fbTemplate));
+      res.status(200).json(fbTemplate);
     }
   });
 });
