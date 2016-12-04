@@ -121,6 +121,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
 
       var count = 0;
       var fbContacts = [];
+      fbContact = "";
 
       docs.forEach(function(doc) {
 
