@@ -112,3 +112,43 @@ app.delete("/contacts/:id", function(req, res) {
     }
   });
 });
+
+
+/*  API Endpoints Returning results in Facebook Messenger Template Structure */
+app.get("/fbmsgr/contacts/:id", function(req, res) {
+  db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contact");
+    } else {
+
+      fbTemplate = {
+        "type": "template",
+        "payload": {
+          "template_type": "generic",
+          "elements": [
+            {
+              "title": doc.firstName + " " + doc.lastName,
+              "image_url": "http://www.rga.com",
+              "item_url": "http://www.rga.com",
+              "subtitle": doc.email,
+              "buttons": [
+                {
+                  "type": "web_url",
+                  "url": "http://www.rga.com",
+                  "title": "Open URL"
+                },
+                {
+                  "type": "postback",
+                  "title": "Select",
+                  "payload": doc._id
+                }
+              ]
+            }
+          ]
+        }
+      }
+
+      res.status(200).json(fbTemplate);
+    }
+  });
+});
