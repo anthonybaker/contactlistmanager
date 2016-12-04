@@ -113,6 +113,61 @@ app.delete("/contacts/:id", function(req, res) {
   });
 });
 
+app.get("/fbmsgr/contacts", function(req, res) {
+  db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, docs) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contacts.");
+    } else {
+
+      var count = 0;
+      var fbContacts = [];
+
+      docs.forEach(function(doc) {
+
+        if (count > 0) {
+          fbContact += ",";
+        }
+
+        fbContact += {
+          "title": doc.firstName + " " + doc.lastName,
+          "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+          "item_url": "http://www.rga.com",
+          "subtitle": doc.email,
+          "buttons": [
+            {
+              "type": "web_url",
+              "url": "http://www.rga.com",
+              "title": "Open URL"
+            },
+            {
+              "type": "postback",
+              "title": "Select",
+              "payload": doc._id
+            }
+          ]
+        }
+
+        fbContacts.push(fbContact);  
+      });
+
+      fbTemplate = {
+        "fbmsgrTemplate": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements": [
+              /* Here goes the list of contacts */
+              fbContacts
+            ]
+          }
+        }
+      }
+
+      res.status(200).json(fbTemplate);
+    }
+  });
+});
+
 
 /*  API Endpoints Returning results in Facebook Messenger Template Structure */
 app.get("/fbmsgr/contacts/:id", function(req, res) {
