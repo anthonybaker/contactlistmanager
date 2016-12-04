@@ -147,7 +147,11 @@ app.get("/fbmsgr/contacts", function(req, res) {
           ]
         }
 
+        console.log("fbContact JSON: " + fbContact);        
+
         fbContacts.push(fbContact);  
+
+        console.log("Added contact to fbContacts array. Count: " + fbContacts.count + "Array: " + fbContacts);
       });
 
       fbTemplate = {
@@ -162,6 +166,8 @@ app.get("/fbmsgr/contacts", function(req, res) {
           }
         }
       }
+
+      console.log("fbTemplate JSON: " + fbTemplate);
 
       res.status(200).json(fbTemplate);
     }
