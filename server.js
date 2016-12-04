@@ -168,9 +168,9 @@ app.get("/fbmsgr/contacts", function(req, res) {
         }
       }
 
-      console.log("fbTemplate JSON: " + JSON.stringify(fbTemplate);
+      console.log("fbTemplate JSON: " + JSON.stringify(fbTemplate));
 
-      res.status(200).json(JSON.stringify(fbTemplate);
+      res.status(200).json(JSON.stringify(fbTemplate));
     }
   });
 });
