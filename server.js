@@ -126,7 +126,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
       docs.forEach(function(doc) {
 
         if (count > 0) {
-          fbContact += ",";
+          fbContact = ",";
         }
 
         fbContact += {
@@ -148,7 +148,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
           ]
         }
 
-        console.log("fbContact JSON: " + fbContact.toString());        
+        console.log("fbContact JSON: " + JSON.stringify(fbContact);        
 
         fbContacts.push(fbContact);  
 
@@ -162,15 +162,15 @@ app.get("/fbmsgr/contacts", function(req, res) {
             "template_type": "generic",
             "elements": [
               /* Here goes the list of contacts */
-              fbContacts
+              JSON.stringify(fbContacts)
             ]
           }
         }
       }
 
-      console.log("fbTemplate JSON: " + fbTemplate);
+      console.log("fbTemplate JSON: " + JSON.stringify(fbTemplate);
 
-      res.status(200).json(fbTemplate);
+      res.status(200).json(JSON.stringify(fbTemplate);
     }
   });
 });
