@@ -162,7 +162,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
             "template_type": "generic",
             "elements": [
               /* Here goes the list of contacts */
-              JSON.stringify(fbContacts)
+              fbContacts
             ]
           }
         }
