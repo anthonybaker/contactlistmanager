@@ -148,11 +148,11 @@ app.get("/fbmsgr/contacts", function(req, res) {
           ]
         }
 
-        console.log("fbContact JSON: " + JSON.stringify(fbContact);        
+        console.log("fbContact JSON: " + JSON.stringify(fbContact));        
 
         fbContacts.push(fbContact);  
 
-        console.log("Added contact to fbContacts array. Count: " + fbContacts.count + "Array: " + fbContacts);
+        console.log("Added contact to fbContacts array. Count: " + fbContacts.length + "Array: " + JSON.stringify(fbContacts);
       });
 
       fbTemplate = {
