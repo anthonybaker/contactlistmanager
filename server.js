@@ -148,7 +148,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
           ]
         }
 
-        console.log("fbContact JSON: " + fbContact);        
+        console.log("fbContact JSON: " + fbContact.toString());        
 
         fbContacts.push(fbContact);  
 
