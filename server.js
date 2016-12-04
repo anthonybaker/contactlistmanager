@@ -152,7 +152,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
 
         fbContacts.push(fbContact);  
 
-        console.log("Added contact to fbContacts array. Count: " + fbContacts.length + "Array: " + JSON.stringify(fbContacts);
+        console.log("Added contact to fbContacts array. Count: " + fbContacts.length + "Array: " + JSON.stringify(fbContacts));
       });
 
       fbTemplate = {
