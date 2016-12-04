@@ -156,10 +156,9 @@ app.get("/fbmsgr/contacts", function(req, res) {
           "type": "template",
           "payload": {
             "template_type": "generic",
-            "elements": [
+            "elements":
               /* Here goes the list of contacts */
               fbContacts
-            ]
           }
         }
       }
