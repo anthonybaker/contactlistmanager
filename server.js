@@ -122,29 +122,31 @@ app.get("/fbmsgr/contacts/:id", function(req, res) {
     } else {
 
       fbTemplate = {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [
-            {
-              "title": doc.firstName + " " + doc.lastName,
-              "image_url": "http://www.rga.com",
-              "item_url": "http://www.rga.com",
-              "subtitle": doc.email,
-              "buttons": [
-                {
-                  "type": "web_url",
-                  "url": "http://www.rga.com",
-                  "title": "Open URL"
-                },
-                {
-                  "type": "postback",
-                  "title": "Select",
-                  "payload": doc._id
-                }
-              ]
-            }
-          ]
+        "fbmsgrTemplate": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements": [
+              {
+                "title": doc.firstName + " " + doc.lastName,
+                "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+                "item_url": "http://www.rga.com",
+                "subtitle": doc.email,
+                "buttons": [
+                  {
+                    "type": "web_url",
+                    "url": "http://www.rga.com",
+                    "title": "Open URL"
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Select",
+                    "payload": doc._id
+                  }
+                ]
+              }
+            ]
+          }
         }
       }
 
