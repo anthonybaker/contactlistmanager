@@ -125,11 +125,11 @@ app.get("/fbmsgr/contacts", function(req, res) {
 
       docs.forEach(function(doc) {
 
-        if (count > 0) {
-          fbContact = ",";
-        }
+        // if (count > 0) {
+        //   fbContact = ",";
+        // }
 
-        fbContact += {
+        fbContact = {
           "title": doc.firstName + " " + doc.lastName,
           "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
           "item_url": "http://www.rga.com",
@@ -152,7 +152,7 @@ app.get("/fbmsgr/contacts", function(req, res) {
 
         fbContacts.push(fbContact);  
 
-        console.log("Added contact to fbContacts array. Count: " + fbContacts.length + "Array: " + JSON.stringify(fbContacts));
+        console.log("Added contact to fbContacts array. Count: " + fbContacts.length + " Array: " + JSON.stringify(fbContacts));
       });
 
       fbTemplate = {
