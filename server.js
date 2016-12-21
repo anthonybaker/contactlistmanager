@@ -313,8 +313,8 @@ function apiaiGetContacts (res) {
         "displayText": "got the message, here's an answer from the webhook",
         "source": "Contacts-Manager-Webhook",
         "data": {
-            fbTemplate,
-            slackTemplate
+            facebook,
+            slack
           
         }
       }
