@@ -282,78 +282,69 @@ function apiaiGetContacts (res) {
   //     }    
   // }
 
-  // Generate the Facebook template structure for API.ai agent
-  var count = 0;
-  var fbContacts = [];
-  fbContact = "";
-
-  var contacts = getContacts(res);
-  console.log("Contacts retrieved: " + contacts);
-
-  contacts.forEach(function(contact) {
-
-    fbContact = {
-      "title": contact.firstName + " " + contact.lastName,
-      "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
-      "item_url": "http://www.rga.com",
-      "subtitle": contact.email,
-      "buttons": [
-        {
-          "type": "web_url",
-          "url": "http://www.rga.com",
-          "title": "Open URL"
-        },
-        {
-          "type": "postback",
-          "title": "Select",
-          "payload": contact._id
-        }
-      ]
-    }
-
-    fbContacts.push(fbContact);  
-
-  });
-
-  fbTemplate = {
-    "speech": "got the message, here's an answer from the webhook",
-    "displayText": "got the message, here's an answer from the webhook",
-    "source": "Contacts-Manager-Webhook",
-    "data": {
-      "facebook": {
-        "attachment": {
-          "type": "template",
-          "payload": {
-            "template_type": "generic",
-            "elements":
-              /* Here goes the list of contacts */
-              fbContacts
-          }
-        }
-      }
-    }
-  }
-
-  console.log("API.ai Response Body JSON: " + JSON.stringify(fbTemplate));
-
-  res.setHeader('content-type', 'application/json');
-  res.status(200).json(resData);
-
-}
-
-/* DB Operations */
-function getContacts (res) {
-
-  console.log("getContacts called");
-
   db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, contacts) {
     if (err) {
       handleError(res, err.message, "Failed to get contacts.");
     } else {
+
       console.log("Contacts retrieved: " + contacts.toString());
-      return contacts;
+
+      // Generate the Facebook template structure for API.ai agent
+      var count = 0;
+      var fbContacts = [];
+      fbContact = "";
+
+      contacts.forEach(function(contact) {
+
+        fbContact = {
+          "title": contact.firstName + " " + contact.lastName,
+          "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+          "item_url": "http://www.rga.com",
+          "subtitle": contact.email,
+          "buttons": [
+            {
+              "type": "web_url",
+              "url": "http://www.rga.com",
+              "title": "Open URL"
+            },
+            {
+              "type": "postback",
+              "title": "Select",
+              "payload": contact._id
+            }
+          ]
+        }
+
+        fbContacts.push(fbContact);  
+
+      });
+
+      fbTemplate = {
+        "speech": "got the message, here's an answer from the webhook",
+        "displayText": "got the message, here's an answer from the webhook",
+        "source": "Contacts-Manager-Webhook",
+        "data": {
+          "facebook": {
+            "attachment": {
+              "type": "template",
+              "payload": {
+                "template_type": "generic",
+                "elements":
+                  /* Here goes the list of contacts */
+                  fbContacts
+              }
+            }
+          }
+        }
+      }
+
+      console.log("API.ai Response Body JSON: " + JSON.stringify(fbTemplate));
+
+      res.setHeader('content-type', 'application/json');
+      res.status(200).json(fbTemplate);
     }
   });
+
 }
 
 
