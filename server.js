@@ -322,10 +322,10 @@ function apiaiGetContacts (res) {
         }
       }
 
-      console.log("API.ai Response Body JSON: " + JSON.stringify(fbTemplate));
+      console.log("API.ai Response Body JSON: " + JSON.stringify(resTemplate));
 
       res.setHeader('content-type', 'application/json');
-      res.status(200).json(fbTemplate);
+      res.status(200).json(resTemplate);
     }
   });
 }
