@@ -289,13 +289,13 @@ function apiaiGetContacts (res) {
 
   var contacts = getContacts(res);
 
-  docs.forEach(function(contacts) {
+  contacts.forEach(function(contact) {
 
     fbContact = {
-      "title": doc.firstName + " " + doc.lastName,
+      "title": contact.firstName + " " + contact.lastName,
       "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
       "item_url": "http://www.rga.com",
-      "subtitle": doc.email,
+      "subtitle": contact.email,
       "buttons": [
         {
           "type": "web_url",
@@ -305,7 +305,7 @@ function apiaiGetContacts (res) {
         {
           "type": "postback",
           "title": "Select",
-          "payload": doc._id
+          "payload": contact._id
         }
       ]
     }
