@@ -226,7 +226,7 @@ app.post("/webhook", function(req, res) {
     var resData = apiai_getcontacts();
 
     console.log('Response body: ' + JSON.stringify(resData));
-    
+
     res.setHeader('content-type', 'application/json');
     res.status(200).json(resData);
   }
@@ -237,8 +237,7 @@ app.post("/webhook", function(req, res) {
         "speech": "got the message, here's an answer from the webhook",
         "displayText": "got the message, but can't understand the action",
         "source": "Contacts-Manager-Webhook" 
-        }    
-    }
+    }    
 
     console.log('Response body: ' + JSON.stringify(resTemplate));
 
