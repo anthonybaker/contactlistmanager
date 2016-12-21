@@ -222,11 +222,9 @@ app.post("/webhook", function(req, res) {
   // fullfillment logic
 
   resTemplate = {
-    "fulfillment": {
-        "speech": "got the message, here's an answer from the webhook",
-        "displayText": "got the message, here's an answer from the webhook",
-        "source": "Contacts-Manager-Webhook"    
-    }
+      "speech": "got the message, here's an answer from the webhook",
+      "displayText": "got the message, here's an answer from the webhook",
+      "source": "Contacts-Manager-Webhook"    
   }
 
   console.log('Response body: ' + JSON.stringify(resTemplate));
