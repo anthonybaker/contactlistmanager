@@ -219,6 +219,9 @@ app.post("/webhook", function(req, res) {
   console.log('Request headers: ' + JSON.stringify(req.headers));
   console.log('Request body: ' + JSON.stringify(req.body));
 
+  var action = req.body.result.action;
+  console.log('Request Action: ' + action);
+
   // fullfillment logic
 
   resTemplate = {
