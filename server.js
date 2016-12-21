@@ -222,8 +222,30 @@ app.post("/webhook", function(req, res) {
   var action = req.body.result.action;
   console.log('Request Action: ' + action);
 
-  // fullfillment logic
+  if (action = "getcontacts"){
+    apiai_getcontacts(req, res);
+  }
+  else {
 
+    // fullfillment logic
+    resTemplate = {
+        "speech": "got the message, here's an answer from the webhook",
+        "displayText": "got the message, but can't understand the action",
+        "source": "Contacts-Manager-Webhook" 
+        }    
+    }
+
+    console.log('Response body: ' + JSON.stringify(resTemplate));
+    res.setHeader('content-type', 'application/json');
+    res.status(200).json(resTemplate);
+  }
+
+});
+
+// Generic error handler used by all endpoints.
+function apiai_getcontacts (res, res) {
+
+  // fullfillment logic
   resTemplate = {
       "speech": "got the message, here's an answer from the webhook",
       "displayText": "got the message, here's an answer from the webhook",
@@ -263,6 +285,5 @@ app.post("/webhook", function(req, res) {
   console.log('Response body: ' + JSON.stringify(resTemplate));
   res.setHeader('content-type', 'application/json');
   res.status(200).json(resTemplate);
-
-});
+}
 
