@@ -230,7 +230,7 @@ app.post("/webhook", function(req, res) {
   }
 
   console.log('Response body: ' + JSON.stringify(resTemplate));
-
+  res.setHeader('content-type', 'application/json');
   res.status(200).json(resTemplate);
 
 });
