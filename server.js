@@ -251,8 +251,7 @@ app.post("/webhook", function(req, res) {
   }
 
   resTemplate = {
-    Body:
-      {
+    "fulfillment": {
         "speech": "",
         "displayText": "got the message, here's an answer from the webhook",
         "data": {
@@ -284,7 +283,7 @@ app.post("/webhook", function(req, res) {
           }  
         },
         "contextOut": [],
-        "source": "DuckDuckGo"
+        "source": "Contacts-Manager-Webhook"
       }
   }
 
