@@ -288,6 +288,7 @@ function apiaiGetContacts (res) {
   fbContact = "";
 
   var contacts = getContacts(res);
+  console.log("Contacts retrieved: " + contacts.toString());
 
   contacts.forEach(function(contact) {
 
