@@ -315,7 +315,7 @@ function apiaiGetContacts (res) {
         "data": {
           "facebook": {
             fbTemplate
-          }
+          },
           "slack":{
             slackTemplate
           }
