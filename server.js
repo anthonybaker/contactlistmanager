@@ -223,7 +223,10 @@ app.post("/webhook", function(req, res) {
   console.log('Request Action: ' + action);
 
   if (action = "getcontacts"){
-    apiai_getcontacts(req, res);
+    var resData = apiai_getcontacts();
+    console.log('Response body: ' + JSON.stringify(resData));
+    res.setHeader('content-type', 'application/json');
+    res.status(200).json(resData);
   }
   else {
 
@@ -243,7 +246,7 @@ app.post("/webhook", function(req, res) {
 });
 
 // Generic error handler used by all endpoints.
-function apiai_getcontacts (res, res) {
+function apiai_getcontacts () {
 
   // fullfillment logic
   resTemplate = {
@@ -281,9 +284,7 @@ function apiai_getcontacts (res, res) {
         }  
       }    
   }
-
-  console.log('Response body: ' + JSON.stringify(resTemplate));
-  res.setHeader('content-type', 'application/json');
-  res.status(200).json(resTemplate);
+  
+  return resTemplate;
 }
 
