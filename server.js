@@ -257,7 +257,30 @@ app.post("/webhook", function(req, res) {
         "displayText": "got the message, here's an answer from the webhook",
         "data": {
           "facebook": {
-            fbTemplate
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [
+                {
+                  "title": "Anthony Baker",
+                  "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+                  "item_url": "http://www.rga.com",
+                  "subtitle": "abakerp@gmail.com",
+                  "buttons": [
+                    {
+                      "type": "web_url",
+                      "url": "http://www.rga.com",
+                      "title": "Open URL"
+                    },
+                    {
+                      "type": "postback",
+                      "title": "Select",
+                      "payload": "ab"
+                    }
+                  ]
+                }
+              ]
+            }
           }  
         },
         "contextOut": [],
