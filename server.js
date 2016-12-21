@@ -282,7 +282,7 @@ function apiaiGetContacts (res) {
 
       });
 
-      fbTemplate = {
+      facebook = {
         "attachment": {
           "type": "template",
           "payload": {
@@ -294,7 +294,7 @@ function apiaiGetContacts (res) {
         }
       }
         
-      slackTemplate = {
+      slack = {
         "text": "got the message, here's an answer from the webhook",
         "attachments": [
             {
@@ -313,12 +313,9 @@ function apiaiGetContacts (res) {
         "displayText": "got the message, here's an answer from the webhook",
         "source": "Contacts-Manager-Webhook",
         "data": {
-          "facebook": {
-            fbTemplate
-          },
-          "slack":{
+            fbTemplate,
             slackTemplate
-          }
+          
         }
       }
 
