@@ -245,43 +245,6 @@ app.post("/webhook", function(req, res) {
 // Get Contacts funtion for Api.ai agent
 function apiaiGetContacts (res) {
 
-  // fullfillment logic
-  // resTemplate = {
-  //     "speech": "got the message, here's an answer from the webhook",
-  //     "displayText": "got the message, here's an answer from the webhook",
-  //     "source": "Contacts-Manager-Webhook",
-  //     "data": {
-  //       "facebook": {
-  //         "attachment":{
-  //           "type": "template",
-  //           "payload": {
-  //             "template_type": "generic",
-  //             "elements": [
-  //               {
-  //                 "title": "Anthony Baker",
-  //                 "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
-  //                 "item_url": "http://www.rga.com",
-  //                 "subtitle": "abakerp@gmail.com",
-  //                 "buttons": [
-  //                   {
-  //                     "type": "web_url",
-  //                     "url": "http://www.rga.com",
-  //                     "title": "Open URL"
-  //                   },
-  //                   {
-  //                     "type": "postback",
-  //                     "title": "Select",
-  //                     "payload": "ab"
-  //                   }
-  //                 ]
-  //               }
-  //             ]
-  //           }
-  //         }
-  //       }  
-  //     }    
-  // }
-
   db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, contacts) {
     if (err) {
       handleError(res, err.message, "Failed to get contacts.");
@@ -320,20 +283,41 @@ function apiaiGetContacts (res) {
       });
 
       fbTemplate = {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements":
+              /* Here goes the list of contacts */
+              fbContacts
+          }
+        }
+      }
+        
+      slackTemplate = {
+        "text": speech,
+        "attachments": [
+            {
+                "fallback": "John Smith - R/GA Employee - http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+                "title": "John Smith",
+                "title_link": "https://www.rga.com",
+                "text": "R/GA Employee",
+                "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+                "color": "#764FA5"
+            }
+        ]
+      }
+
+      resTemplate = {
         "speech": "got the message, here's an answer from the webhook",
         "displayText": "got the message, here's an answer from the webhook",
         "source": "Contacts-Manager-Webhook",
         "data": {
           "facebook": {
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "generic",
-                "elements":
-                  /* Here goes the list of contacts */
-                  fbContacts
-              }
-            }
+            fbTemplate
+          }
+          "slack":{
+            slackTemplate
           }
         }
       }
@@ -344,7 +328,6 @@ function apiaiGetContacts (res) {
       res.status(200).json(fbTemplate);
     }
   });
-
 }
 
 
