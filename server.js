@@ -295,7 +295,7 @@ function apiaiGetContacts (res) {
       }
         
       slackTemplate = {
-        "text": speech,
+        "text": "got the message, here's an answer from the webhook",
         "attachments": [
             {
                 "fallback": "John Smith - R/GA Employee - http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
