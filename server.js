@@ -287,7 +287,9 @@ function apiaiGetContacts (res) {
   var fbContacts = [];
   fbContact = "";
 
-  docs.forEach(function(getContacts(res)) {
+  var contacts = getContacts(res);
+
+  docs.forEach(function(contacts) {
 
     fbContact = {
       "title": doc.firstName + " " + doc.lastName,
@@ -309,7 +311,7 @@ function apiaiGetContacts (res) {
     }
 
     fbContacts.push(fbContact);  
-    
+
   });
 
   fbTemplate = {
