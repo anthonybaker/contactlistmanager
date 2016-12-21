@@ -227,8 +227,8 @@ app.post("/webhook", function(req, res) {
 
     //console.log('Response body: ' + JSON.stringify(resData));
 
-    //res.setHeader('content-type', 'application/json');
-    //res.status(200).json(resData);
+    res.setHeader('content-type', 'application/json');
+    res.status(200).json(resData);
   }
   else {
 
@@ -341,8 +341,7 @@ function apiaiGetContacts (res) {
 
   console.log("API.ai Response Body JSON: " + JSON.stringify(fbTemplate));
 
-  res.setHeader('content-type', 'application/json');
-  res.status(200).json(fbTemplate);
+  return fbTemplate;
 
 }
 
