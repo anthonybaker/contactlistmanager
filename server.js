@@ -342,10 +342,14 @@ function apiaiGetContacts (res) {
 
 /* DB Operations */
 function getContacts (res) {
+
+  console.log("getContacts called");
+
   db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, contacts) {
     if (err) {
       handleError(res, err.message, "Failed to get contacts.");
     } else {
+      console.log("Contacts retrieved: " + contacts.toString());
       return contacts;
     }
   });
