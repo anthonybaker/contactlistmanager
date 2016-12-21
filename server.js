@@ -223,12 +223,12 @@ app.post("/webhook", function(req, res) {
   console.log('Request Action: ' + action);
 
   if (action == "getcontacts") {
-    var resData = apiai_getcontacts();
+    var resData = apiai_getcontacts(res);
 
-    console.log('Response body: ' + JSON.stringify(resData));
+    //console.log('Response body: ' + JSON.stringify(resData));
 
-    res.setHeader('content-type', 'application/json');
-    res.status(200).json(resData);
+    //res.setHeader('content-type', 'application/json');
+    //res.status(200).json(resData);
   }
   else {
 
@@ -247,46 +247,114 @@ app.post("/webhook", function(req, res) {
 
 });
 
-// Generic error handler used by all endpoints.
-function apiai_getcontacts () {
+// Get Contacts funtion for Api.ai agent
+function apiaiGetContacts (res) {
 
   // fullfillment logic
-  resTemplate = {
-      "speech": "got the message, here's an answer from the webhook",
-      "displayText": "got the message, here's an answer from the webhook",
-      "source": "Contacts-Manager-Webhook",
-      "data": {
-        "facebook": {
-          "attachment":{
-            "type": "template",
-            "payload": {
-              "template_type": "generic",
-              "elements": [
-                {
-                  "title": "Anthony Baker",
-                  "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
-                  "item_url": "http://www.rga.com",
-                  "subtitle": "abakerp@gmail.com",
-                  "buttons": [
-                    {
-                      "type": "web_url",
-                      "url": "http://www.rga.com",
-                      "title": "Open URL"
-                    },
-                    {
-                      "type": "postback",
-                      "title": "Select",
-                      "payload": "ab"
-                    }
-                  ]
-                }
-              ]
-            }
+  // resTemplate = {
+  //     "speech": "got the message, here's an answer from the webhook",
+  //     "displayText": "got the message, here's an answer from the webhook",
+  //     "source": "Contacts-Manager-Webhook",
+  //     "data": {
+  //       "facebook": {
+  //         "attachment":{
+  //           "type": "template",
+  //           "payload": {
+  //             "template_type": "generic",
+  //             "elements": [
+  //               {
+  //                 "title": "Anthony Baker",
+  //                 "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+  //                 "item_url": "http://www.rga.com",
+  //                 "subtitle": "abakerp@gmail.com",
+  //                 "buttons": [
+  //                   {
+  //                     "type": "web_url",
+  //                     "url": "http://www.rga.com",
+  //                     "title": "Open URL"
+  //                   },
+  //                   {
+  //                     "type": "postback",
+  //                     "title": "Select",
+  //                     "payload": "ab"
+  //                   }
+  //                 ]
+  //               }
+  //             ]
+  //           }
+  //         }
+  //       }  
+  //     }    
+  // }
+
+  // Generate the Facebook template structure for API.ai agent
+  var count = 0;
+  var fbContacts = [];
+  fbContact = "";
+
+  docs.forEach(function(getContacts(res)) {
+
+    fbContact = {
+      "title": doc.firstName + " " + doc.lastName,
+      "image_url": "http://res.cloudinary.com/abakerp/image/upload/v1480872817/Backgrounds_The_man_in_black_tie_zq8mam.jpg",
+      "item_url": "http://www.rga.com",
+      "subtitle": doc.email,
+      "buttons": [
+        {
+          "type": "web_url",
+          "url": "http://www.rga.com",
+          "title": "Open URL"
+        },
+        {
+          "type": "postback",
+          "title": "Select",
+          "payload": doc._id
+        }
+      ]
+    }
+
+    console.log("fbContact JSON: " + JSON.stringify(fbContact));        
+
+    fbContacts.push(fbContact);  
+
+    console.log("Added contact to fbContacts array. Count: " + fbContacts.length + " Array: " + JSON.stringify(fbContacts));
+  });
+
+  fbTemplate = {
+    "speech": "got the message, here's an answer from the webhook",
+    "displayText": "got the message, here's an answer from the webhook",
+    "source": "Contacts-Manager-Webhook",
+    "data": {
+      "facebook": {
+        "attachment": {
+          "type": "template",
+          "payload": {
+            "template_type": "generic",
+            "elements":
+              /* Here goes the list of contacts */
+              fbContacts
           }
-        }  
-      }    
+        }
+      }
+    }
   }
 
-  return resTemplate;
+  console.log("API.ai Response Body JSON: " + JSON.stringify(fbTemplate));
+
+  res.setHeader('content-type', 'application/json');
+  res.status(200).json(fbTemplate);
+
 }
+
+/* DB Operations */
+function getContacts (res) {
+  db.collection(CONTACTS_COLLECTION).find({}).toArray(function(err, contacts) {
+    if (err) {
+      handleError(res, err.message, "Failed to get contacts.");
+    } else {
+      return contacts;
+    }
+  });
+}
+
 
