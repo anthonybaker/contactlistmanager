@@ -222,9 +222,11 @@ app.post("/webhook", function(req, res) {
   var action = req.body.result.action;
   console.log('Request Action: ' + action);
 
-  if (action = "getcontacts"){
+  if (action == "getcontacts") {
     var resData = apiai_getcontacts();
+
     console.log('Response body: ' + JSON.stringify(resData));
+    
     res.setHeader('content-type', 'application/json');
     res.status(200).json(resData);
   }
@@ -239,6 +241,7 @@ app.post("/webhook", function(req, res) {
     }
 
     console.log('Response body: ' + JSON.stringify(resTemplate));
+
     res.setHeader('content-type', 'application/json');
     res.status(200).json(resTemplate);
   }
@@ -284,7 +287,7 @@ function apiai_getcontacts () {
         }  
       }    
   }
-  
+
   return resTemplate;
 }
 
