@@ -265,6 +265,8 @@ app.post("/webhook", function(req, res) {
       }
   }
 
+  console.log('Response body: ' + JSON.stringify(resTemplate));
+
   res.status(200).json(resTemplate);
 
 });
