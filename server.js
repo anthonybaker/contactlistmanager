@@ -216,19 +216,14 @@ app.get("/fbmsgr/contacts/:id", function(req, res) {
 /*  API.ai webhook endpoint */
 app.post("/webhook", function(req, res) {
   
-  console.log('Request headers: ' + JSON.stringify(req.headers));
-  console.log('Request body: ' + JSON.stringify(req.body));
+  //console.log('Request headers: ' + JSON.stringify(req.headers));
+  //console.log('Request body: ' + JSON.stringify(req.body));
 
   var action = req.body.result.action;
   console.log('Request Action: ' + action);
 
   if (action == "getcontacts") {
-    var resData = apiai_getcontacts(res);
-
-    //console.log('Response body: ' + JSON.stringify(resData));
-
-    res.setHeader('content-type', 'application/json');
-    res.status(200).json(resData);
+    apiaiGetContacts(res);
   }
   else {
 
@@ -313,11 +308,8 @@ function apiaiGetContacts (res) {
       ]
     }
 
-    console.log("fbContact JSON: " + JSON.stringify(fbContact));        
-
     fbContacts.push(fbContact);  
-
-    console.log("Added contact to fbContacts array. Count: " + fbContacts.length + " Array: " + JSON.stringify(fbContacts));
+    
   });
 
   fbTemplate = {
@@ -341,7 +333,8 @@ function apiaiGetContacts (res) {
 
   console.log("API.ai Response Body JSON: " + JSON.stringify(fbTemplate));
 
-  return fbTemplate;
+  res.setHeader('content-type', 'application/json');
+  res.status(200).json(resData);
 
 }
 
